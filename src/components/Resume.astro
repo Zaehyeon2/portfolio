@@ -1,0 +1,161 @@
+---
+import Ext from '@/components/Ext.astro';
+import profile from '@/data/profile.json';
+import { BASE, href } from '@/lib/project';
+
+// top(경력·기술)은 경력 불릿의 상세 링크를 검사하려고 프로젝트 slug 목록을 받는다
+type Props = { part: 'top'; slugs: string[] } | { part: 'bottom' };
+const props = Astro.props;
+const { part } = props;
+
+const MON: Record<string, number> = { Jan: 1, Feb: 2, Mar: 3, Apr: 4, May: 5, Jun: 6, Jul: 7, Aug: 8, Sep: 9, Oct: 10, Nov: 11, Dec: 12 };
+// 날짜 칸이 없는 항목은 글 속 연도(와 영문 월)로 줄 세운다.
+const yearOf = (s: string) => Number(s.match(/(?:19|20)\d{2}/g)?.at(-1) ?? 0);
+// 큰 것부터. 키는 항목마다 한 번만 계산한다
+const desc = <T,>(a: T[], key: (x: T) => number | string) =>
+  a
+    .map((x) => [key(x), x] as const)
+    .sort(([p], [q]) => (p < q ? 1 : p > q ? -1 : 0))
+    .map(([, x]) => x);
+
+// 저자 목록에서 내 이름만 굵게.
+const authorParts = (s: string) => s.split(/(김재현|Jaehyeon Kim)/);
+
+const top = props.part === 'top';
+const career = top ? desc(profile.career, (c) => c.period) : [];
+const slugs = new Set(props.part === 'top' ? props.slugs : []);
+// 경력 불릿의 [글자](slug) 를 상세 링크로. 없는 slug 면 빌드를 멈춘다.
+const parts = (line: string) =>
+  line.split(/(\[[^\]]+\]\([a-z0-9-]+\))/).map((x) => {
+    const m = x.match(/^\[([^\]]+)\]\(([a-z0-9-]+)\)$/);
+    if (m && !slugs.has(m[2])) throw new Error(`경력 불릿의 프로젝트 없음: ${m[2]}`);
+    return m ? { text: m[1], href: href(m[2]) } : { text: x };
+  });
+// 경력 불릿 "라벨: 글" (라벨이 없으면 글만)
+const bullet = (line: string) => {
+  const [label, ...rest] = line.split(': ');
+  return rest.length ? { label, segs: parts(rest.join(': ')) } : { label: '', segs: parts(line) };
+};
+const papers = top ? [] : desc(profile.publications, (p) => yearOf(p.venue) * 100 + (MON[p.venue.match(/\b([A-Z][a-z]{2}),/)?.[1] ?? ''] ?? 0));
+const patents = top ? [] : desc(profile.patents, (p) => `${p.date} ${p.number}`);
+const awards = top ? [] : desc(profile.awards, (a) => a.date);
+const education = top ? [] : desc(profile.education, (e) => e.period);
+// solved.ac level(1=Bronze 5 … 30=Ruby 1) → 티어 이름(아이콘 alt). 아이콘은 저장소에 넣지 않고 solved.ac 주소를 쓴다
+const TIERS = ['Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond', 'Ruby'];
+const tier = (l: number) => (l < 1 ? 'Unrated' : `${TIERS[Math.floor((l - 1) / 5)]} ${5 - ((l - 1) % 5)}`);
+const algorithms = top ? [] : desc(profile.algorithms, (a) => yearOf(a.contest) * 1e6 + Number(a.url.match(/\d+$/)?.[0] ?? 0));
+---
+
+{
+  part === 'top' ? (
+    <section class="resume lead-resume" aria-label="경력·기술">
+      <section class="grp" id="career">
+        <h2>경력</h2>
+        <ul>
+          {career.map((c) => (
+            <li class="rrow">
+              <span class="pd">{c.period}</span>
+              <div>
+                <a class="team" href={`${BASE}?${new URLSearchParams({ team: c.team })}#projects`} data-astro-prefetch="false"><b>{c.name}</b></a>
+                <p>{c.desc}</p>
+                <ul class="cb">
+                  {c.bullets.map(bullet).map(({ label, segs }) => (
+                    <li>{label && <b class="lb">{label}</b>}{label && ' '}{segs.map((x) => (x.href ? <a href={x.href}>{x.text}</a> : x.text))}</li>
+                  ))}
+                </ul>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section class="grp" id="skills">
+        <h2>기술</h2>
+        <ul>
+          {profile.skills.map((g) => (
+            <li class="rrow">
+              <span class="pd">{g.group}</span>
+              <ul class="sl">
+                {g.items.map((it) => (
+                  <li><b>{it.name}</b>{'desc' in it && it.desc && <span class="mut"> {it.desc}</span>}</li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </section>
+  ) : (
+    <section class="resume" aria-label="이력">
+      <section class="grp" id="papers">
+        <div class="gh">
+          <h2>논문<small>{papers.length}편</small></h2>
+          <span class="hl">{profile.publicationLinks.map((l) => <Ext href={l.url}>{l.label}</Ext>)}</span>
+        </div>
+        <ul>
+          {papers.map((p) => (
+            <li class="rrow pub">
+              <div>
+                <Ext href={p.url}><b>{p.title}</b></Ext>
+                {p.note && <span class="note">{p.note}</span>}
+                <p>{authorParts(p.authors).map((t, i) => (i % 2 ? <b>{t}</b> : t))}</p>
+                <p class="mut">{p.venue}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section class="grp" id="patents">
+        <h2>특허·프로그램 등록<small>{patents.length}건</small></h2>
+        <ul>
+          {patents.map((p) => (
+            <li class="rrow">
+              <span class="pd">{p.kind === 'Patent' ? '특허' : '프로그램'}<small>{p.status === 'Granted' ? '등록' : p.status}</small></span>
+              <div>
+                <Ext href={`${BASE}${p.pdf}`} prefetch={false}><b>{p.title}</b></Ext>
+                <p>{p.desc}</p>
+              </div>
+              <span class="num">{p.number}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section class="grp" id="awards">
+        <h2>수상<small>{awards.length}개</small></h2>
+        <ul>
+          {awards.map((a) => (
+            <li class="rrow"><span class="pd">{a.date}</span><div><b>{a.title}</b></div></li>
+          ))}
+        </ul>
+      </section>
+      <section class="grp" id="education">
+        <h2>학력</h2>
+        <ul>
+          {education.map((e) => (
+            <li class="rrow">
+              <span class="pd">{e.period}</span>
+              <div><b>{e.name}</b> <span class="mut">({e.note})</span>{e.desc && <p>{e.desc}</p>}</div>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section class="grp" id="algorithms">
+        <div class="gh">
+          <h2>알고리즘 문제 출제<small>{algorithms.length}개</small></h2>
+          <span class="hl"><Ext href={profile.algorithmsUrl}>백준 문제 목록</Ext></span>
+        </div>
+        <ul>
+          {algorithms.map((a) => (
+            <li class="rrow">
+              <span class="pd">{a.contest}</span>
+              <div>
+                <img class="tier" src={`https://static.solved.ac/tier_small/${a.level ?? 0}.svg`} alt={tier(a.level ?? 0)} width="13" height="16" loading="lazy" />
+                <Ext href={a.url}><b>{a.title}</b></Ext>
+                <div class="atags">{(a.tags ?? []).map((t) => <span>{t}</span>)}</div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </section>
+  )
+}

@@ -1,0 +1,380 @@
+@import "tailwindcss";
+@import "./shadcn.css";
+
+@theme inline {
+  --font-sans: "Pretendard Variable", Pretendard, sans-serif;
+  --font-heading: var(--font-sans);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* 원장 팔레트 → shadcn 토큰 */
+:root {
+  --ink: #19252e;
+  --mut: #56656f;
+  --line: #d3dadf;
+  --acc: #0b6e8a;
+  --bg: #f1f4f6;
+  --t0: #0b6e8a;
+  --t1: #4d8a6c;
+  --t2: #b07a2a;
+  --background: var(--bg);
+  --foreground: var(--ink);
+  --card: #fff;
+  --card-foreground: var(--ink);
+  --popover: var(--ink);
+  --popover-foreground: #fff;
+  --primary: var(--ink);
+  --primary-foreground: #fff;
+  --secondary: #e6ecef;
+  --secondary-foreground: #2b3b46;
+  --muted: #e3e9ec;
+  --muted-foreground: var(--mut);
+  --accent: #f6fafb;
+  --accent-foreground: var(--ink);
+  --destructive: #b42318;
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--acc);
+  --radius: 0.375rem;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground; font: 15px/1.65 var(--font-sans); -webkit-font-smoothing: antialiased; }
+}
+
+/* 아래는 레이어 밖이라 shadcn 유틸리티보다 우선한다. 요소 선택자는 쓰지 않는다. */
+#app { max-width: 1200px; margin: 0 auto; padding: 0 56px 72px; }
+#app :focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+.top { display: flex; justify-content: space-between; align-items: baseline; padding: 26px 0; border-bottom: 1px solid var(--ink); }
+.who { display: flex; gap: 12px; align-items: baseline; text-decoration: none; }
+.who .nm1 { font-size: 19px; font-weight: 700; }
+.who span + span { color: var(--mut); }
+.top nav { display: flex; gap: 18px; flex-wrap: wrap; }
+.top nav a { text-decoration: none; font-weight: 600; color: var(--acc); }
+.intro { display: grid; grid-template-columns: 340px minmax(0, 1fr); column-gap: 56px; row-gap: 18px; padding: 44px 0 28px; align-items: start; }
+.intro p { word-break: keep-all; font-size: 16px; line-height: 1.7; color: var(--mut); margin: 6px 0 0; }
+.intro .lead { font-size: 25px; line-height: 1.5; font-weight: 600; letter-spacing: -0.02em; color: inherit; text-wrap: balance; word-break: keep-all; margin: 0 0 10px; }
+.intro .info > div { display: flex; justify-content: space-between; gap: 16px; padding: 3px 0; font-size: 14px; }
+.intro dt, aside dt { color: var(--mut); }
+.intro dt { flex: none; }
+.intro dd { min-width: 0; overflow-wrap: anywhere; font-weight: 500; text-align: right; font-variant-numeric: tabular-nums; }
+.intro dd a { color: var(--acc); text-decoration: none; }
+.intro dd a:hover { text-decoration: underline; }
+.me { display: flex; gap: 16px; align-items: center; }
+.photo { width: 120px; height: 154px; flex: none; object-fit: cover; object-position: center top; border-radius: 6px; border: 1px solid var(--line); background: var(--muted); }
+.me .info { flex: 1; min-width: 0; }
+
+/* timeline */
+.tl { background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 34px 20px 10px; margin: 8px 0 26px; }
+.tg { position: relative; }
+.gr { position: absolute; left: 110px; right: 0; top: -24px; bottom: 0; pointer-events: none; }
+.yl { position: absolute; top: 0; bottom: 0; border-left: 1px dotted #c3ccd2; }
+.yl span { position: absolute; top: 0; left: 6px; font-size: 13px; color: var(--mut); font-weight: 600; }
+.now { position: absolute; top: 18px; bottom: 0; border-left: 2px solid var(--ink); margin-left: -2px; }
+.now span { position: absolute; top: -2px; right: 0; font-size: 13px; font-weight: 700; background: var(--ink); color: #fff; padding: 0 7px; border-radius: 3px; line-height: 18px; transform: translateY(-100%); margin-top: 4px; white-space: nowrap; }
+.lane { height: var(--h); position: relative; margin-left: 110px; border-top: 1px solid #edf0f2; }
+.ln { position: absolute; left: -110px; top: 4px; width: 100px; word-break: keep-all; font-size: 13.5px; font-weight: 600; line-height: 1.3; color: var(--mut); }
+.lt { position: relative; height: 100%; }
+.t0 { --c: var(--t0); --chip: hsl(193 60% 92%); --chip-ink: hsl(193 75% 22%); }
+.t1 { --c: var(--t1); --chip: hsl(150 35% 90%); --chip-ink: hsl(150 45% 22%); }
+.t2 { --c: var(--t2); --chip: hsl(36 65% 90%); --chip-ink: hsl(36 70% 24%); }
+.bar { position: absolute; height: 8px; border-radius: 4px; background: var(--c); transition: transform 0.2s ease-out, opacity 0.3s ease-out; }
+.bar.open { background: linear-gradient(90deg, var(--c) 70%, transparent); border-right: 2px dashed var(--c); border-radius: 4px 0 0 4px; }
+.bar.dim { opacity: 0.18; }
+/* 8px 막대의 터치 영역을 위아래로 넓혀 24px 로 */
+.bar::before { content: ""; position: absolute; inset: -8px 0; }
+.bar:hover, .bar:focus-visible { transform: scaleY(1.7); z-index: 5; }
+.tip { font-size: 13.5px; line-height: 1.4; white-space: pre; transition: opacity 150ms ease-out, transform 150ms ease-out; }
+
+/* filters */
+.tools { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 14px; }
+.search { flex: 1; min-width: 220px; }
+.search input { height: auto; background: #fff; border-radius: 99px; padding: 9px 18px; font-size: 15px; }
+/* 필터 버튼처럼 테두리만 진하게. shadcn 링·#app 외곽선이 겹치면 이 칸만 청록 후광이 뜬다. */
+#app .search input:focus-visible, .pop .ps:focus-visible { border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink); outline: none; }
+.clear { align-self: flex-start; height: auto; color: var(--acc); font-weight: 600; padding: 4px 2px; text-decoration: underline; font-size: 15px; }
+.count { color: var(--mut); margin: 6px 0 10px; font-size: 14px; font-variant-numeric: tabular-nums; }
+.empty { background: #fff; border: 1px dashed var(--line); border-radius: 6px; padding: 36px; text-align: center; color: var(--mut); }
+.empty .clear { margin-top: 8px; border: 1px solid var(--acc); border-radius: 99px; padding: 6px 18px; text-decoration: none; display: inline-block; }
+.nf { margin-top: 40px; }
+
+/* ledger */
+#res { position: relative; }
+.ghosts { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+.head, .row { display: grid; grid-template-columns: minmax(0, 1.5fr) 150px minmax(0, 1.25fr) 120px; gap: 28px; align-items: start; }
+.head { color: var(--mut); font-size: 14px; padding: 0 20px 8px; border-bottom: 1px solid var(--ink); }
+.grp { margin-top: 30px; }
+.grp h2, .grp h3 { font-size: 20px; font-weight: 700; display: flex; gap: 14px; align-items: baseline; padding-bottom: 8px; }
+.grp h2 small, .grp h3 small { font-size: 14px; color: var(--mut); font-weight: 400; }
+.row { background: #fff; padding: 16px 20px; border-top: 1px solid var(--line); transition: background-color 0.2s ease-out; }
+.row:first-child, .rrow:first-child { border-top: 2px solid var(--c, var(--acc)); }
+.row:hover { background: var(--accent); }
+.nm a { display: inline-block; font-weight: 700; font-size: 17px; text-decoration: none; }
+.nm a:hover { color: var(--acc); }
+/* Learn more hover: 줄에 올리면 꺾쇠가 나타나고, 이름에 올리면 2px 밀리며 두 팔이 8도 벌어진다 */
+.nm .lm { display: inline-block; width: 15px; height: 15px; margin-left: 4px; vertical-align: -2px; fill: none; stroke: var(--acc); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: 0; transform: translateX(-4px); transition: opacity 0.2s ease-out, transform 350ms var(--ease-out); }
+.row:hover .nm .lm, .nm a:focus-visible .lm { opacity: 1; transform: none; }
+.nm a:hover .lm { transform: translateX(2px); }
+.nm .arm { transform-box: view-box; transform-origin: 10px 8px; transition: transform 350ms var(--ease-out); }
+.nm a:hover .arm.up { transform: rotate(8deg); }
+.nm a:hover .arm.dn { transform: rotate(-8deg); }
+.nm p { color: var(--mut); margin-top: 2px; line-height: 1.55; }
+.pd { font-variant-numeric: tabular-nums; }
+.pd small { display: block; color: var(--mut); font-size: 14px; }
+.stk { display: flex; flex-wrap: wrap; gap: 5px; }
+.tag { height: auto; font-size: 13px; line-height: 1; padding: 5px 8px; border-radius: 3px; font-weight: 400; }
+.ct { display: flex; align-items: center; gap: 10px; padding-top: 5px; }
+.bar2 { flex: 1; height: 6px; background: #dde4e8; border-radius: 3px; overflow: hidden; }
+.bar2 i { display: block; height: 100%; background: var(--c, var(--acc)); transition: width 0.3s ease-out; }
+.row:hover .bar2 i { filter: brightness(1.15); }
+.ct b { width: 40px; text-align: right; font-variant-numeric: tabular-nums; }
+footer { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; margin-top: 60px; color: var(--mut); font-size: 14px; border-top: 1px solid var(--line); padding-top: 14px; }
+footer nav { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+footer a { color: var(--acc); font-weight: 600; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* resume */
+.resume { margin-top: 56px; padding-top: 10px; border-top: 1px solid var(--ink); }
+.resume.lead-resume { margin: 0 0 30px; padding-top: 0; border-top: 0; }
+.rrow a.team:hover b { color: var(--acc); text-decoration: underline; }
+.cb { margin-top: 6px; padding-left: 1.1em; list-style: disc; }
+.cb li { margin-top: 3px; }
+.cb li::marker { color: var(--acc); }
+.cb .lb { font-weight: 600; }
+.rrow .cb a { color: var(--acc); text-decoration: underline; text-underline-offset: 2px; }
+.sl li + li { margin-top: 6px; }
+.rrow { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 28px; background: #fff; padding: 14px 20px; border-top: 1px solid var(--line); }
+.rrow:has(.num) { grid-template-columns: 220px minmax(0, 1fr) auto; }
+.rrow.pub { grid-template-columns: minmax(0, 1fr); }
+.rrow p { color: var(--mut); line-height: 1.55; margin-top: 2px; }
+.rrow a { text-decoration: none; }
+.rrow a:hover { color: var(--acc); text-decoration: underline; }
+.mut { color: var(--mut); }
+.num { font-variant-numeric: tabular-nums; color: var(--mut); }
+.note { margin-left: 8px; font-size: 13px; color: var(--acc); font-weight: 600; }
+.hl { margin-left: auto; display: flex; gap: 14px; font-size: 14px; font-weight: 600; }
+.hl a { color: var(--acc); text-decoration: none; }
+
+/* detail */
+.back { display: inline-block; margin: 28px 0 0; color: var(--acc); font-weight: 600; text-decoration: none; }
+.back::before { content: "\2190  " / ""; }
+.dh { padding: 20px 0 34px; border-bottom: 1px solid var(--line); }
+.dh h1 { display: inline-block; font-size: 44px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; }
+.dh p { font-size: 19px; color: var(--mut); margin-top: 6px; }
+.dbody { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 64px; padding-top: 34px; }
+aside { align-self: start; position: sticky; top: 20px; }
+aside dl > div { padding: 7px 0; border-bottom: 1px solid var(--line); }
+aside dd { margin-top: 2px; font-weight: 600; }
+aside .stk { margin-top: 4px; }
+aside .ct { padding-top: 2px; }
+.lk { display: flex; flex-direction: column; gap: 4px; }
+.lk a { color: var(--acc); font-weight: 600; }
+article { max-width: 720px; }
+article h2 { font-size: 20px; font-weight: 700; margin: 34px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+article h2:first-child { margin-top: 0; }
+article h3 { font-size: 17px; font-weight: 700; margin: 20px 0 8px; }
+article p + p, article p + ul, article ul + p { margin-top: 10px; }
+article ul { padding-left: 1.1em; list-style: disc; }
+article li { margin-bottom: 8px; }
+article li::marker { color: var(--acc); }
+article .lb, article strong { font-weight: 700; }
+article a { color: var(--acc); text-decoration: underline; }
+
+/* 처음 열기 순서: 소개 글(0~580ms)이 먼저 올라오고 타임라인 막대는 250ms 뒤부터 */
+html[data-intro] .tl .bar { transform-origin: left center; animation: grow 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) backwards; animation-delay: calc(250ms + var(--i) * 35ms); }
+html[data-intro] .tl .now { animation: drop 0.5s ease-out backwards; animation-delay: calc(var(--n) * 35ms + 500ms); }
+html[data-intro] .tl .yl { animation: fade 0.5s ease-out backwards; }
+@keyframes grow { from { transform: scaleX(0); } }
+@keyframes drop { from { clip-path: inset(0 0 100% 0); opacity: 0.2; } to { clip-path: inset(0); opacity: 1; } }
+@keyframes fade { from { opacity: 0; } }
+/* Page side-by-side: 앞으로는 오른쪽, 뒤로는 왼쪽에서 8px. root 엔 blur 를 걸지 않는다(화면 전체라 폰 GPU 에서 프레임이 떨어진다) */
+::view-transition-old(root) { animation: 150ms ease-out both pg-out; }
+::view-transition-new(root) { animation: 250ms var(--ease-out) both pg-in; }
+[data-astro-transition="back"]::view-transition-new(root) { animation-name: pg-in-back; }
+@keyframes pg-out { to { opacity: 0; } }
+@keyframes pg-in { from { opacity: 0; transform: translateX(8px); } }
+@keyframes pg-in-back { from { opacity: 0; transform: translateX(-8px); } }
+::view-transition-group(*) { animation-duration: 0.35s; animation-timing-function: var(--ease-out); }
+/* 목록 이름 ↔ 상세 h1: 겹쳐 바꾸지 않고 큰 글자(h1) 그림 하나만 그룹을 따라 줄거나 커진다.
+   작은 글자 그림을 키우면 흐려지니 h1 쪽 그림을 보인다(목록으로 갈 땐 옛 그림, data-morph) */
+.dh h1, .row .nm .nmt { view-transition-class: proj; }
+.nm .nmt { display: inline-block; }
+::view-transition-old(*.proj), ::view-transition-new(*.proj) { animation: none; height: 100%; width: auto; }
+::view-transition-old(*.proj) { opacity: 0; }
+html[data-morph="list"]::view-transition-old(*.proj) { opacity: 1; }
+html[data-morph="list"]::view-transition-new(*.proj) { opacity: 0; }
+
+
+
+/* 앵커로 점프했을 때 제목이 화면 위에 붙지 않게 */
+#projects, .grp { scroll-margin-top: 16px; }
+/* 같은 페이지 앵커만 부드럽게. 페이지 전환 중(data-astro-transition)엔 Astro 의 스크롤 복원이 굴러가 보이지 않게 끈다 */
+@media (prefers-reduced-motion: no-preference) { html:not([data-astro-transition]) { scroll-behavior: smooth; } }
+
+/* 필터: 도구 막대 + 펼침 메뉴 */
+.menus { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.ddb { display: inline-flex; align-items: center; gap: 6px; height: auto; border: 1px solid var(--line); background: #fff; border-radius: 99px; padding: 7px 14px; font-size: 14px; color: var(--ink); white-space: nowrap; cursor: pointer; }
+.ddb:hover, .ddb.on { border-color: var(--ink); }
+.ddb b { font-variant-numeric: tabular-nums; background: var(--ink); color: #fff; border-radius: 99px; font-size: 12px; min-width: 18px; height: 18px; line-height: 18px; text-align: center; padding: 0 5px; font-weight: 600; }
+.ddb b.nil { visibility: hidden; }
+.ddb::after { content: ""; width: 7px; height: 7px; border-right: 1.5px solid var(--mut); border-bottom: 1.5px solid var(--mut); transform: rotate(45deg) translate(-2px, -2px); margin-left: 2px; }
+.ddb[data-popup-open]::after { transform: rotate(-135deg) translate(-2px, -2px); }
+.pop { transform-origin: var(--transform-origin); transition: opacity 180ms cubic-bezier(0.23, 1, 0.32, 1), transform 180ms cubic-bezier(0.23, 1, 0.32, 1); width: 270px; padding: 6px; gap: 0; background: #fff; color: var(--ink); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 8px 24px rgb(25 37 46 / 0.12); }
+.pop .ps { height: auto; border-radius: 6px; padding: 6px 10px; font-size: 14px; margin: 2px 2px 6px; width: auto; }
+.pop ul { max-height: 260px; overflow: auto; }
+/* 메뉴: 버튼 모서리에서 팝(scale .95→1), 닫힘은 더 짧게 */
+.pop[data-starting-style], .pop[data-ending-style] { opacity: 0; transform: scale(0.95); }
+.pop[data-ending-style] { transition-duration: 120ms; }
+.glide { position: relative; outline: none; }
+.glide > li { position: relative; }
+.gpill { position: absolute; left: 0; right: 0; top: 0; border-radius: 5px; background: #eef2f4; opacity: 0; pointer-events: none; transition: transform 220ms cubic-bezier(0.23, 1, 0.32, 1), opacity 150ms ease-out; }
+.glide.kb:focus .gpill { box-shadow: inset 0 0 0 2px var(--acc); }
+.sortp { width: 150px; }
+.opt { padding: 7px 10px; font-size: 14px; border-radius: 5px; cursor: pointer; }
+.opt[aria-selected="true"] { font-weight: 600; }
+.opt[aria-selected="true"]::after { content: "\2713" / ""; float: right; color: var(--acc); }
+.gv { display: inline-grid; }
+.gv > span { grid-area: 1 / 1; visibility: hidden; }
+.gv > span.on { visibility: visible; animation: gs-swap 160ms ease-out; }
+@keyframes gs-swap { from { opacity: 0.6; filter: blur(2px); } }
+/* Spring Check: 바탕이 가운데서 스프링으로 차오르고, 넘친 만큼 상자가 살짝 부풀고, 체크가 그려진다. 해제는 거꾸로. */
+.sc { --spring: linear(0, 0.21 6%, 0.56 15%, 0.86 25%, 1.04 35%, 1.08 45%, 1.05 55%, 1.01 70%, 0.995 85%, 1); position: relative; display: grid; place-items: center; flex: none; width: 16px; height: 16px; border-radius: 4px; box-shadow: inset 0 0 0 1.5px #8a979f; cursor: pointer; transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1); }
+.sc:active { transform: scale(0.95); }
+.sc:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+.sc-fill { position: absolute; inset: 0; border-radius: inherit; background: var(--ink); transform: scale(0); transition: transform 180ms cubic-bezier(0.23, 1, 0.32, 1); }
+.sc[data-checked] .sc-fill { transform: scale(1); transition: transform 320ms var(--spring); }
+.sc[data-checked] { animation: sc-swell 320ms ease-out; }
+@keyframes sc-swell { 45% { transform: scale(1.03); } }
+.sc-tick { position: relative; width: 12px; height: 12px; }
+.sc-tick path { fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 120ms ease-in; }
+.sc[data-checked] .sc-tick path { stroke-dashoffset: 0; transition: stroke-dashoffset 200ms 80ms ease-out; }
+/* 키보드로 바꾸면 움직임 없이 바로 */
+.sc:focus-visible, .sc:focus-visible * { transition: none; animation: none; }
+.ck { display: flex; align-items: center; gap: 9px; padding: 6px 8px; border-radius: 5px; font-size: 14px; cursor: pointer; }
+.ck small { color: var(--mut); font-variant-numeric: tabular-nums; }
+.ck.zero { color: var(--mut); }
+.pop .none { padding: 10px 8px; color: var(--mut); font-size: 14px; }
+.pf { display: flex; justify-content: space-between; border-top: 1px solid var(--line); margin-top: 6px; padding: 8px 6px 2px; font-size: 13px; color: var(--mut); }
+.pf button { color: var(--acc); font-weight: 600; cursor: pointer; }
+.picked { position: relative; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: -2px 0 16px; min-height: 30px; }
+.picked .hint { color: var(--mut); font-size: 13px; animation: fade 200ms ease-out both; }
+/* 칩이 생길 때 살짝 튀며 나타난다 */
+.picked > .pk, .picked > .clear { animation: chip-in 200ms cubic-bezier(0.34, 1.45, 0.64, 1) both; }
+@keyframes chip-in { from { opacity: 0; transform: scale(0.9); filter: blur(2px); } }
+.pk { display: inline-flex; align-items: center; gap: 4px; background: var(--secondary); border-radius: 99px; padding: 1px 3px 1px 11px; font-size: 13px; }
+.pk button { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 99px; color: var(--mut); font-size: 15px; cursor: pointer; }
+.pk button:hover { background: var(--line); color: var(--ink); }
+.picked .clear { font-size: 13px; margin-left: 4px; padding: 2px; min-height: 24px; }
+
+
+/* 작업 유형 아이콘 */
+.ty { display: inline-flex; align-items: center; gap: 4px; }
+.pd small.ty { display: flex; }
+.ti { flex: none; color: var(--mut); }
+.ck .v { flex: 1; display: inline-flex; align-items: center; gap: 5px; }
+/* Number pop-in: 바뀐 자리만 */
+.dg { display: inline-block; }
+.dg.rise { animation: digit-pop 500ms cubic-bezier(0.34, 1.45, 0.64, 1) both; }
+@keyframes digit-pop { from { transform: translateY(8px); opacity: 0; filter: blur(2px); } }
+/* Tooltip: 80ms 기다렸다 150ms 로 뜨고 50ms 로 닫힘. 툴팁끼리 옮겨 갈 땐(data-instant) 바로 */
+.tip[data-starting-style] { opacity: 0; transform: scale(0.97); }
+.tip[data-ending-style] { opacity: 0; transition-duration: 50ms; }
+.tip[data-instant] { transition: none; }
+/* Texts reveal: 처음 열 때 소개 세 줄 */
+html[data-intro] .intro .text > * { animation: text-up 500ms var(--ease-out) both; }
+html[data-intro] .intro .text > :nth-child(2) { animation-delay: 40ms; }
+html[data-intro] .intro .text > :nth-child(3) { animation-delay: 80ms; }
+html[data-intro] .intro .text > :nth-child(4) { animation-delay: 120ms; }
+@keyframes text-up { from { opacity: 0; transform: translateY(12px); filter: blur(3px); } }
+
+/* 사이트 밖으로 나가는 링크 표시 */
+.ext { display: inline-block; vertical-align: -1px; margin-left: 2px; flex: none; }
+/* 고른 팀 칩: 팀 색(.t0~2 의 --chip)으로 기술 칩과 같은 연한 바탕 + 진한 글자 */
+.pk.team { background: var(--chip); color: var(--chip-ink); }
+.pk .ti { margin-right: 4px; color: inherit; }
+/* 처음 열 때 묶음이 보이면 줄이 올라온다(Base.astro 스크립트가 rv·seen·done 을 단다). 시차는 9줄째에서 멈춘다 */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-intro] .rv:not(.seen) > ul > li { opacity: 0; transform: translateY(8px); }
+}
+html[data-intro] .rv.seen:not(.done) > ul > li { animation: row-up 400ms var(--ease-out) both; animation-delay: calc(var(--ri, 0) * 30ms); }
+@keyframes row-up { from { opacity: 0; transform: translateY(8px); } }
+/* 상세 본문 그림: 본문 칸 전체로 커지지 않게 */
+article img { display: block; width: 100%; max-width: 360px; height: auto; margin: 16px 0; border: 1px solid var(--line); border-radius: 6px; }
+/* 알고리즘 문제: solved.ac 티어 아이콘과 조용한 태그 */
+.tier { display: inline-block; width: auto; height: 16px; margin-right: 6px; vertical-align: -3px; }
+.atags { display: flex; flex-wrap: wrap; gap: 4px 6px; margin-top: 5px; }
+.atags span { font-size: 12px; line-height: 1.5; padding: 0 6px; border-radius: 3px; background: #eef1f3; color: var(--mut); }
+.intro .motto { margin-top: 14px; font-size: 14px; font-style: italic; color: var(--mut); }
+/* hydration 전 쿼리 거르기(Base.astro hdPrefilter) */
+#res .pre { display: none; }
+#res .grp > ul { display: flex; flex-direction: column; }
+/* 인쇄: 스크롤 등장 전 숨김 풀기 */
+@media print {
+  html[data-intro] .rv > ul > li { opacity: 1 !important; transform: none !important; animation: none !important; }
+}
+/* 논문·문제 출제 제목 옆 바깥 링크(제목 밖) */
+.gh { display: flex; align-items: baseline; gap: 14px; }
+.gh h2 { flex: 1; }
+.nf h1 { font-size: inherit; font-weight: inherit; }
+
+@media (max-width: 760px) {
+  #app { padding: 0 18px 48px; }
+  .top { flex-wrap: wrap; gap: 6px; }
+  .intro { grid-template-columns: minmax(0, 1fr); gap: 20px; padding: 30px 0 20px; }
+  .intro .lead { font-size: 20px; }
+  .tl { padding: 30px 12px 8px; }
+  .gr { left: 0; }
+  .lane { margin-left: 0; padding-top: 20px; height: calc(var(--h) + 20px); }
+  .ln { left: 0; top: 2px; width: auto; }
+  .head { display: none; }
+  .row { grid-template-columns: 1fr auto; gap: 8px 12px; padding: 14px; }
+  .nm { grid-column: 1 / -1; }
+  .pd small { display: inline; margin-left: 8px; }
+  .ct { grid-column: 2; grid-row: 2; padding: 0; }
+  .row .bar2 { display: none; }
+  .row .stk { grid-column: 1 / -1; }
+  .rrow, .rrow:has(.num) { grid-template-columns: 1fr; gap: 2px; padding: 12px 14px; }
+  .grp h2, .grp h3 { flex-wrap: wrap; }
+  .dh h1 { font-size: 34px; }
+  .dbody { grid-template-columns: 1fr; gap: 20px; }
+  aside { position: static; }
+  /* 폰: 첫 줄 검색 + 정렬, 둘째 줄 필터 버튼. 필터 메뉴가 열려도 정렬 버튼을 가리지 않는다 */
+  .search { flex: 1 1 0; min-width: 0; order: 1; }
+  .menus { display: contents; }
+  .menus .sortb { order: 2; }
+  .tools::after { content: ""; flex-basis: 100%; order: 3; }
+  .menus .ddb:not(.sortb) { order: 4; }
+  .pd small.ty { display: inline-flex; vertical-align: -2px; }
+  article img { max-width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::after { transition: none !important; animation: none !important; }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+  .pop { transition: opacity 120ms ease-out !important; }
+  .pop[data-starting-style], .pop[data-ending-style] { transform: none; }
+}

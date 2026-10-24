@@ -1,0 +1,164 @@
+---
+import Ext from '@/components/Ext.astro';
+import { ClientRouter } from 'astro:transitions';
+import profile from '@/data/profile.json';
+import { BASE, ymd } from '@/lib/project';
+import '@/styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  noindex?: boolean;
+}
+const { title, description, noindex } = Astro.props;
+const ogImage = new URL(`${BASE}profile.png`, Astro.site);
+const url = new URL(Astro.url.pathname, Astro.site);
+// 빌드한 날(서울 기준)
+const built = ymd(new Date(), 'Asia/Seoul');
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={url} />}
+    <link rel="icon" href={`${BASE}favicon.ico`} sizes="any" />
+    <link rel="icon" type="image/png" href={`${BASE}favicon-32.png`} sizes="32x32" id="season-icon" />
+    <link rel="apple-touch-icon" href={`${BASE}apple-touch-icon.png`} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url} />
+    <meta property="og:site_name" content="김재현 포트폴리오" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="413" />
+    <meta property="og:image:height" content="531" />
+    <meta property="og:image:alt" content="김재현 프로필 사진" />
+    <meta name="twitter:card" content="summary" />
+    <meta property="og:locale" content="ko_KR" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    />
+    <script is:inline define:vars={{ base: BASE }}>
+      // 처음 열 때만 소개 글 올라오기. ClientRouter 로 돌아오면 html 속성이 새 문서 것으로 바뀌어 빠진다.
+      document.documentElement.dataset.intro = '';
+
+      // 탭 아이콘을 방문자 날짜의 계절 거북이로. ClientRouter 가 head 를 새 문서 것으로 바꾸니 이동할 때마다 다시 건다.
+      const season = () => {
+        const icon = document.getElementById('season-icon');
+        const m = new Date().getMonth();
+        if (icon) icon.href = `${base}favicon/${['winter', 'spring', 'summer', 'autumn'][Math.floor(((m + 1) % 12) / 3)]}.png`;
+      };
+      season();
+
+      // 목록 섬은 늦게 hydration 되니(client:idle) 그 전에 주소 쿼리대로 줄을 숨기고 정렬해 둔다(깜빡임·이름 이어지기 위치).
+      // Explorer 의 matcher·정렬과 같은 규칙이어야 한다. 섬이 그린 뒤 pre·order 를 걷는다.
+      window.hdPrefilter = () => {
+        const res = document.getElementById('res');
+        const u = new URLSearchParams(location.search);
+        if (!res || ![...u.keys()].some((k) => ['team', 'type', 'tech', 'q', 'sort'].includes(k))) return;
+        const f = ['team', 'type', 'tech'].map((k) => [k, (u.get(k) || '').split(',').filter(Boolean)]);
+        const words = (u.get('q') || '').trim().toLowerCase().split(/\s+/).filter(Boolean);
+        const rows = [...res.querySelectorAll('.row')];
+        const ok = rows.map(
+          (r) =>
+            words.every((w) => r.dataset.text.includes(w)) &&
+            f.every(([k, vs]) => !vs.length || (k === 'tech' ? r.dataset.tech.split('|') : [r.dataset[k]]).some((v) => vs.includes(v))),
+        );
+        if (!ok.some(Boolean)) return;
+        rows.forEach((r, i) => r.classList.toggle('pre', !ok[i]));
+        for (const g of res.querySelectorAll('.grp')) g.classList.toggle('pre', !g.querySelector('.row:not(.pre)'));
+        if (u.get('sort') === 'contrib') {
+          for (const ul of res.querySelectorAll('.grp > ul')) {
+            [...ul.children].sort((a, b) => b.dataset.c - a.dataset.c || b.dataset.s - a.dataset.s).forEach((r, i) => (r.style.order = i));
+          }
+        }
+      };
+
+      document.addEventListener('astro:after-swap', () => {
+        season();
+        window.hdPrefilter();
+      });
+
+      // 목록 안에서 쿼리만 바뀐 뒤로·앞으로는 Astro 라우터보다 먼저 받아 목록 섬에 넘긴다(문서를 바꿔 끼우면 FLIP 이 안 돈다).
+      // ClientRouter 모듈보다 먼저 등록돼야 해서 인라인이다. Astro 의 popstate 처리(history.state)에 기대므로 Astro 를 올릴 때 확인.
+      addEventListener('popstate', (e) => {
+        const l = window.hdList;
+        if (!l || location.pathname !== l.path || location.search === l.search) return;
+        e.stopImmediatePropagation();
+        dispatchEvent(new Event('hd:list-pop'));
+      });
+    </script>
+    <ClientRouter />
+  </head>
+  <body>
+    <div id="app">
+      <header class="top">
+        <a class="who" href={BASE}><span class="nm1">{profile.name}</span><span>{profile.alias}</span></a>
+        <nav aria-label="프로필 링크">
+          {profile.links.map((l) => <Ext href={l.url}>{l.label}</Ext>)}
+        </nav>
+      </header>
+      <main>
+        <slot />
+      </main>
+      <footer>
+        <nav aria-label="연락">
+          <a href={`mailto:${profile.contact.mail}`}>{profile.contact.mail}</a>
+          {profile.links.map((l) => <Ext href={l.url}>{l.label}</Ext>)}
+          <Ext href={profile.minihome}>미니홈피</Ext>
+        </nav>
+        <span>마지막 갱신 {built}</span>
+      </footer>
+    </div>
+    <script is:inline>
+      window.hdPrefilter();
+      // 처음 열 때만: 줄이 있는 묶음이 화면에 들어오면 그 줄들이 한 번 올라온다.
+      // 숨김(CSS)은 여기서 rv 를 단 묶음에만 걸려, JS 가 없거나 나중에 생긴 묶음·상세에서 돌아온 목록은 그냥 보인다.
+      (() => {
+        if (!document.documentElement.hasAttribute('data-intro')) return;
+        const secs = [...document.querySelectorAll('.grp')].filter((s) => s.querySelector(':scope > ul > li'));
+        for (const s of secs) {
+          s.classList.add('rv');
+          s.querySelectorAll(':scope > ul > li').forEach((li, i) => li.style.setProperty('--ri', Math.min(i, 8)));
+        }
+        const io = new IntersectionObserver(
+          (es) => {
+            for (const e of es) {
+              if (!e.isIntersecting) continue;
+              io.unobserve(e.target);
+              e.target.classList.add('seen');
+              setTimeout(() => e.target.classList.add('done'), 800);
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px' },
+        );
+        // 첫 화면 묶음은 소개 글이 올라온 뒤에
+        setTimeout(() => secs.forEach((s) => io.observe(s)), 300);
+      })();
+    </script>
+    <script>
+      // 목록↔상세 전환은 눌린 줄(돌아올 땐 그 상세의 줄) 이름 글자 하나만 상세 h1 과 이어 준다(꺾쇠는 빼고).
+      const name = (a: HTMLElement | null | undefined, slug?: string) => {
+        if (a && slug) a.style.viewTransitionName = `p-${slug}`;
+      };
+      document.addEventListener('click', (e) => {
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        const a = (e.target as Element).closest<HTMLElement>('.row .nm a');
+        name(a?.querySelector<HTMLElement>('.nmt'), a?.closest<HTMLElement>('.row')?.dataset.slug);
+      });
+      document.addEventListener('astro:before-swap', (e) => {
+        const slug = e.from.pathname.match(/\/([^/]+)\/$/)?.[1];
+        const row = e.newDocument.querySelector<HTMLElement>(`.row[data-slug="${slug}"] .nmt`);
+        name(row, slug);
+        // 상세 → 목록이면(뒤로든 '프로젝트 목록' 링크든) 큰 글자(h1)가 옛 그림이다
+        if (row) e.newDocument.documentElement.dataset.morph = 'list';
+      });
+    </script>
+  </body>
+</html>

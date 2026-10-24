@@ -1,0 +1,11 @@
+---
+import Base from '@/layouts/Base.astro';
+import { BASE } from '@/lib/project';
+---
+
+<Base title="페이지를 찾을 수 없어요" description="없는 주소입니다." noindex>
+  <div class="empty nf">
+    <h1>페이지를 찾을 수 없어요.</h1>
+    <a class="clear" href={BASE}>프로젝트 목록으로</a>
+  </div>
+</Base>

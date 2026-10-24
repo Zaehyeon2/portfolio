@@ -1,0 +1,58 @@
+---
+import Ext from '@/components/Ext.astro';
+import { getCollection, render } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+import profile from '@/data/profile.json';
+import { BASE, period, type Project } from '@/lib/project';
+import { Contrib, TechTags, TypeLabel } from '@/components/ProjectBits';
+
+export async function getStaticPaths() {
+  return (await getCollection('projects')).map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+const { entry } = Astro.props;
+const p: Project = { slug: entry.id, ...entry.data };
+const { Content } = await render(entry);
+---
+
+<Base title={`${p.name} | ${profile.name}`} description={p.summary}>
+  <a class="back" href={BASE} data-back>프로젝트 목록</a>
+  <div class="dh">
+    <h1 transition:name={`p-${p.slug}`}>{p.name}</h1>
+    <p>{p.summary}</p>
+  </div>
+  <div class={`dbody t${profile.teamOrder.indexOf(p.team)}`}>
+    <aside>
+      <dl>
+        <div><dt>소속</dt><dd>{p.team}</dd></div>
+        <div><dt>기간</dt><dd>{period(p)}</dd></div>
+        <div><dt>유형</dt><dd class="ty"><TypeLabel type={p.type} /></dd></div>
+        <div>
+          <dt>기여도</dt>
+          <dd class="ct"><Contrib p={p} /></dd>
+        </div>
+        <div>
+          <dt>기술</dt>
+          <dd class="stk"><TechTags stack={p.stack} /></dd>
+        </div>
+        {
+          p.links.length > 0 && (
+            <div>
+              <dt>링크</dt>
+              <dd class="lk">{p.links.map((l) => <Ext href={l.url}>{l.label}</Ext>)}</dd>
+            </div>
+          )
+        }
+      </dl>
+    </aside>
+    <article><Content /></article>
+  </div>
+</Base>
+
+<script>
+  // 목록에서 고른 필터를 "프로젝트 목록" 링크에 되살린다.
+  document.addEventListener('astro:page-load', () => {
+    const a = document.querySelector<HTMLAnchorElement>('[data-back]');
+    const q = sessionStorage.getItem('listQuery');
+    if (a && q) a.search = q;
+  });
+</script>

@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+import Explorer from '@/components/Explorer';
+import Resume from '@/components/Resume.astro';
+import profile from '@/data/profile.json';
+import { BASE, type Item } from '@/lib/project';
+
+// 섬에 넘기는 값은 HTML 에 그대로 실리니 쓰지 않는 links 는 뺀다
+const projects: Item[] = (await getCollection('projects')).map(({ id, data: { links: _, ...rest } }) => ({ slug: id, ...rest }));
+const { birth, mail, tel } = profile.contact;
+const info = [
+  { label: '이름', text: `${profile.name} (${profile.nameEn})` },
+  { label: '생일', text: birth },
+  { label: '메일', text: mail, href: `mailto:${mail}` },
+  { label: '전화', text: tel, href: `tel:${tel.replace(/[^\d+]/g, '').replace(/^\+820/, '+82')}` },
+];
+---
+
+<Base title={`${profile.name} 포트폴리오`} description={profile.description}>
+  <Explorer client:idle projects={projects} teamOrder={profile.teamOrder} intro={profile.intro} motto={profile.motto} info={info} photo={BASE + profile.photo}>
+    <Resume part="top" slugs={projects.map((p) => p.slug)} />
+  </Explorer>
+  <Resume part="bottom" />
+</Base>

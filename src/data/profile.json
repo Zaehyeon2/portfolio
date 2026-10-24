@@ -1,0 +1,413 @@
+{
+  "name": "김재현",
+  "nameEn": "Jaehyeon Kim",
+  "alias": "Hammer Turtle",
+  "photo": "profile.png",
+  "description": "게임 플랫폼과 Web3 백엔드부터 AI 업무 자동화까지, 기술로 실질적 가치를 만드는 김재현입니다.",
+  "intro": [
+    "게임 플랫폼 백엔드와 AI 개발 도구를 만드는 김재현입니다.",
+    "대학원 석사과정에서 블록체인과 그래프 머신러닝을 연구하고, 네오위즈 블록체인Lab에서 3년간 스마트 컨트랙트부터 백엔드까지 Web3 서비스 전 구간을 설계하고 운영했습니다.",
+    "지금은 플랫폼개발1팀에서 게임 플랫폼 NEON의 결제·이벤트 수집 서버, 사내 운영 시스템, AI 기반 개발 도구를 만들고 있습니다."
+  ],
+  "motto": "빠르게 실패하고 빠르게 배운다 (Fail Fast)",
+  "links": [
+    {
+      "label": "GitHub",
+      "url": "https://github.com/Zaehyeon2"
+    },
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/zaehyeon/"
+    }
+  ],
+  "teamOrder": [
+    "네오위즈 플랫폼개발1팀",
+    "네오위즈 블록체인Lab",
+    "개인·기타"
+  ],
+  "contact": {
+    "birth": "1998.01.28",
+    "mail": "insam2802@gmail.com",
+    "tel": "+82) 010-2802-0192"
+  },
+  "education": [
+    {
+      "period": "2017.03~2021.02",
+      "name": "한양대학교 ERICA 소프트웨어융합대학 소프트웨어학부",
+      "note": "3.92/4.5"
+    },
+    {
+      "period": "2021.03~2023.02",
+      "name": "한양대학교 대학원 인공지능융합전공 석사과정",
+      "note": "4.14/4.5",
+      "desc": "블록체인을 이용한 의료 데이터 관리 체계와 그래프 머신러닝 기반의 온체인 이상 거래 탐지 모델을 연구했습니다."
+    }
+  ],
+  "career": [
+    {
+      "period": "2026.01~현재",
+      "name": "네오위즈 플랫폼개발1팀",
+      "team": "네오위즈 플랫폼개발1팀",
+      "desc": "게임 플랫폼 NEON 백엔드와 사내 운영 시스템, AI 개발 도구를 만들고 있습니다.",
+      "bullets": [
+        "결제·이벤트: [NEON 지급거절 검토 자동화](neon-chargeback), 이벤트 수집 서버([NeoEvent](neoevent))와 [Web SDK](neoevent-web-sdk)",
+        "사내 운영: [ITSM v2](itsm-v2)(장애·정기점검 통합), [AI 비용 대시보드](ai-cost-dashboard)",
+        "AI 도구: [Neon-tools](neon-tools), [Neon Jira Issue Bot](neon-jira-bot)"
+      ]
+    },
+    {
+      "period": "2023.01~2025.12",
+      "name": "네오위즈 블록체인Lab",
+      "team": "네오위즈 블록체인Lab",
+      "desc": "스마트 컨트랙트부터 백엔드까지 Web3 서비스 전 구간을 설계하고 운영했습니다.",
+      "bullets": [
+        "스마트 컨트랙트: [NFT Voucher](nft-voucher), [Price Oracle](price-oracle)",
+        "서비스·백엔드: [PredictGo](predictgo), [Alphastarter](alphastarter), [Transaction Pipeline](transaction-pipeline)"
+      ]
+    }
+  ],
+  "awards": [
+    {
+      "date": "2013.02",
+      "title": "2013 서울 사회적경제 아이디어 대회 수상"
+    },
+    {
+      "date": "2017.11",
+      "title": "ERICA Software-Up Programming Contest League A 우수상"
+    },
+    {
+      "date": "2019.05",
+      "title": "한양대학교 ERICA Programming Contest (HEPC) MAVEN 대상"
+    },
+    {
+      "date": "2018.11",
+      "title": "ERICA Software-Up 창업 아이디어톤 대회 우수상"
+    },
+    {
+      "date": "2018.11",
+      "title": "ERICA 사회혁신 창업경진대회 장려상"
+    },
+    {
+      "date": "2018.11",
+      "title": "ERICA Software-Up Programming Contest League A 우수상"
+    },
+    {
+      "date": "2022.07",
+      "title": "2022 대한전자공학회 하계학술대회 우수논문상 수상"
+    },
+    {
+      "date": "2023.02",
+      "title": "2022-2학기 석사학위 우수논문상 수상"
+    }
+  ],
+  "skills": [
+    {
+      "group": "Backend",
+      "items": [
+        {
+          "name": "TypeScript·Nest.js",
+          "desc": "Nest.js 기반 백엔드 서비스, 배치 서버 / 패키지 개발 등"
+        },
+        {
+          "name": "Java·Spring Boot",
+          "desc": "Spring Boot 기반 사내 시스템 조회 API 개발"
+        },
+        {
+          "name": "Messaging (SQS·Kafka)",
+          "desc": "AWS SQS를 이용한 이벤트 아키텍처 / Kafka를 이용한 대용량 처리"
+        }
+      ]
+    },
+    {
+      "group": "Data",
+      "items": [
+        {
+          "name": "MySQL·DynamoDB·OpenSearch",
+          "desc": "MySQL (RDB), DynamoDB (NoSQL) / OpenSearch"
+        },
+        {
+          "name": "Prisma·TypeORM",
+          "desc": "Prisma ORM, TypeORM"
+        }
+      ]
+    },
+    {
+      "group": "Infra",
+      "items": [
+        {
+          "name": "AWS Lambda·ECS·S3",
+          "desc": "Serverless (AWS Lambda), S3, ECS, KMS 등"
+        },
+        {
+          "name": "IaC (CDK·CDKTF·Pulumi)",
+          "desc": "AWS CDK, CDKTF, Pulumi"
+        },
+        {
+          "name": "Kubernetes·Helm·CI",
+          "desc": "EKS 위 Helm 차트 배포 / GitLab CI 파이프라인 구성"
+        }
+      ]
+    },
+    {
+      "group": "AI",
+      "items": [
+        {
+          "name": "LLM 에이전트·LangGraph (Python, FastAPI)",
+          "desc": "AI Agents, LangGraph 등 AI Orchestration / FastAPI 백엔드 서비스 등"
+        },
+        {
+          "name": "MCP",
+          "desc": "사내 문서·로그 검색 도구를 AI 에이전트에 연결하는 MCP 서버 개발"
+        },
+        {
+          "name": "AI 코딩 에이전트",
+          "desc": "코딩 에이전트 활용 개발 / 저장소 문서·규칙으로 에이전트 작업 품질 관리"
+        }
+      ]
+    },
+    {
+      "group": "Frontend",
+      "items": [
+        {
+          "name": "React·Next.js",
+          "desc": "사내 운영, 배포 툴 / 개인 사이트 등"
+        },
+        {
+          "name": "Electron",
+          "desc": "Mac·Windows 데스크톱 앱 개발(투명 오버레이, 설치 파일 빌드·배포 자동화)"
+        }
+      ]
+    },
+    {
+      "group": "Blockchain",
+      "items": [
+        {
+          "name": "Solidity·EVM",
+          "desc": "EVM Solidity Smart Contract 개발 / Audit 가능한 수준의 보안 분석"
+        },
+        {
+          "name": "ERC-1155·4337",
+          "desc": "ERC-1155, ERC-4337 등 최신 Standards"
+        },
+        {
+          "name": "Hardhat·Ethers.js·Viem",
+          "desc": "Hardhat, Ethers.js, Viem 등"
+        }
+      ]
+    }
+  ],
+  "publicationLinks": [
+    {
+      "label": "ORCID",
+      "url": "https://orcid.org/0000-0001-9347-3680"
+    },
+    {
+      "label": "Google Scholar",
+      "url": "https://scholar.google.co.kr/citations?user=g2thjeAAAAAJ&hl=ko"
+    }
+  ],
+  "publications": [
+    {
+      "authors": "권용석, 김수형, 이세종, 김태성, 김지형, 김유신, 김재현, 조성현",
+      "title": "이동 통신 및 컴퓨팅 분야의 블록체인 확장성 연구",
+      "url": "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE08762314&language=ko_KR",
+      "venue": "대한전자공학회 하계종합학술대회, pp. 1485-1486, 2019."
+    },
+    {
+      "authors": "김재현, 이세종, 조성현",
+      "title": "블록체인 기반 의료 시스템에서 저장 공간 및 통신 오버헤드 경감을 위한 분산 전송 기법",
+      "url": "https://scholar.google.co.kr/citations?view_op=view_citation&hl=ko&user=g2thjeAAAAAJ&citation_for_view=g2thjeAAAAAJ:SP6oXDckpogC",
+      "venue": "THE 31TH JOINT CONFERENCE ON COMMUNICATIONS AND INFORMATION (JCCI), pp. 1-2, 부산, 2021."
+    },
+    {
+      "authors": "김재현, 김유신, 이세종, 안세영, 노재원, 김종훈, 조성현",
+      "title": "설명 가능한 인공지능 기반 의료 AI 기술 연구 동향",
+      "url": "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE10591782",
+      "venue": "대한전자공학회 하계종합학술대회, pp. 2403-2406, 제주도, 2021."
+    },
+    {
+      "authors": "Jaehyeon Kim, Sejong Lee, Yushin Kim, and Sunghyun Cho",
+      "title": "A Graph Embedding-based Identity Inference Attack on Blockchain Systems",
+      "url": "http://dx.doi.org/10.1109/ICEIC54506.2022.9748281",
+      "venue": "2022 International Conference on Electronics, Information, and Communication (ICEIC), pp. 1-3, Jeju, Feb, 2022."
+    },
+    {
+      "authors": "Yushin Kim, Jaehyeon Kim, Sejong Lee, Seyoung Ahn, Jonghun Kim, Sooyoung Park, and Sunghyun Cho",
+      "title": "Automatic Hepatocellular Carcinoma Diagnosis using Graph Convolutional Network",
+      "url": "http://dx.doi.org/10.1109/ICEIC54506.2022.9748503",
+      "venue": "2022 International Conference on Electronics, Information, and Communication (ICEIC), pp. 1-4, Jeju, Feb, 2022."
+    },
+    {
+      "authors": "Sejong Lee, Jaehyeon Kim, Yongseok Kwon, Teasung Kim, and Sunghyun Cho",
+      "title": "Privacy Preservation in Patient Information Exchange Systems Based on Blockchain: System Design Study",
+      "url": "https://www.jmir.org/2022/3/e29108",
+      "venue": "Journal of Medical Internet Research, vol. 24, no. 3, p. e29108, Mar, 2022. (ISSN: 1438-8871, IF: 5.428)"
+    },
+    {
+      "authors": "김재현, 이세종, 김유신, 안세영, 권용석, 조성현",
+      "title": "그래프 분류를 통한 이더리움 피싱 계좌 탐지 기법",
+      "url": "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE11132831",
+      "venue": "대한전자공학회 하계종합학술대회, pp. 1937-1940, 제주도, 2022.",
+      "note": "우수학생논문상"
+    },
+    {
+      "authors": "Sejong Lee, Jaehyeon Kim, Yongseok Kwon, Yushin Kim, and Sunghyun Cho",
+      "title": "Blockchain-based Decentralized Identity Management for Privacy-preserving over 6G Smart Healthcare",
+      "url": "https://scholarworks.bwise.kr/erica/handle/2021.sw.erica/122707",
+      "venue": "The 18th International Conference on Data Science (ICDATA’22), Las Vegas, Jul, 2022."
+    },
+    {
+      "authors": "Jaehyeon Kim, Sejong Lee, Yushin Kim, Seyoung Ahn, and Sunghyun Cho",
+      "title": "Graph Learning-based Blockchain Phishing Account Detection with a Heterogeneous Transaction Graph",
+      "url": "https://www.mdpi.com/1424-8220/23/1/463",
+      "venue": "Sensors, vol. 23, no. 1, p. 463, Jan, 2023. (ISSN: 1424-8220, IF: 3.847)"
+    }
+  ],
+  "patents": [
+    {
+      "kind": "Program",
+      "status": "Granted",
+      "title": "축산 유통의 총 중량 확인프로그램",
+      "number": "C-2020-047873",
+      "date": "2020.12",
+      "desc": "블록체인으로 축산물 유통 과정의 총 중량을 기록하고 확인하는 공급망 관리 프로그램",
+      "pdf": "certificates/program-C-2020-047873.pdf"
+    },
+    {
+      "kind": "Program",
+      "status": "Granted",
+      "title": "AI 간암 진단 보조 프로그램",
+      "number": "C-2021-052462",
+      "date": "2021.12",
+      "desc": "그래프 합성곱 신경망(GCN)으로 간세포암 진단을 돕는 의료용 프로그램",
+      "pdf": "certificates/program-C-2021-052462.pdf"
+    },
+    {
+      "kind": "Patent",
+      "status": "Granted",
+      "title": "앙상블 러닝 기반 수면 단계 분류 장치 및 앙상블 러닝 기반 수면 단계 분류 프로그램",
+      "number": "10-2953702",
+      "date": "2026.04",
+      "desc": "판독자마다 다른 뇌파 수면 단계 판독을 앙상블 러닝으로 함께 반영해 자동으로 분류",
+      "pdf": "certificates/patent-10-2953702.pdf"
+    },
+    {
+      "kind": "Patent",
+      "status": "Granted",
+      "title": "이더리움 네트워크에서 그래프 뉴럴 네트워크 기반 사이버 범죄 계좌 탐지 방법 및 장치",
+      "number": "10-2951885",
+      "date": "2026.04",
+      "desc": "이더리움 거래를 그래프로 만들고 그래프 뉴럴 네트워크로 피싱 같은 범죄 계좌를 찾는 기법",
+      "pdf": "certificates/patent-10-2951885.pdf"
+    }
+  ],
+  "algorithmsUrl": "https://www.acmicpc.net/problemset?sort=no_asc&author=TheKinGoD&author_type=1",
+  "algorithms": [
+    {
+      "title": "좋은 날 싫은 날",
+      "url": "https://www.acmicpc.net/problem/17211",
+      "contest": "2019 Hanyang ERICA Programming Contest (HEPC)",
+      "level": 6,
+      "tags": [
+        "수학",
+        "다이나믹 프로그래밍",
+        "확률론"
+      ]
+    },
+    {
+      "title": "다항 함수의 적분",
+      "url": "https://www.acmicpc.net/problem/17214",
+      "contest": "2019 Hanyang ERICA Programming Contest (HEPC)",
+      "level": 12,
+      "tags": [
+        "수학",
+        "문자열",
+        "많은 조건 분기",
+        "파싱",
+        "미적분학"
+      ]
+    },
+    {
+      "title": "비밀번호 만들기",
+      "url": "https://www.acmicpc.net/problem/17218",
+      "contest": "2019 Hanyang ERICA Programming Contest (HEPC)",
+      "level": 12,
+      "tags": [
+        "다이나믹 프로그래밍",
+        "문자열",
+        "역추적",
+        "최장 공통 부분 수열 문제"
+      ]
+    },
+    {
+      "title": "비밀번호 찾기",
+      "url": "https://www.acmicpc.net/problem/17219",
+      "contest": "2019 Hanyang ERICA Programming Contest (HEPC)",
+      "level": 7,
+      "tags": [
+        "자료 구조",
+        "집합과 맵",
+        "해시를 사용한 집합과 맵"
+      ]
+    },
+    {
+      "title": "ZOAC 2",
+      "url": "https://www.acmicpc.net/problem/18238",
+      "contest": "ZeroOne Algorithm Contest (ZOAC) 2019",
+      "level": 4,
+      "tags": [
+        "구현",
+        "그리디 알고리즘",
+        "문자열"
+      ]
+    },
+    {
+      "title": "Small World Network",
+      "url": "https://www.acmicpc.net/problem/18243",
+      "contest": "ZeroOne Algorithm Contest (ZOAC) 2019",
+      "level": 10,
+      "tags": [
+        "그래프 이론",
+        "그래프 탐색",
+        "너비 우선 탐색",
+        "최단 경로",
+        "플로이드–워셜"
+      ]
+    },
+    {
+      "title": "변형 계단 수",
+      "url": "https://www.acmicpc.net/problem/18244",
+      "contest": "ZeroOne Algorithm Contest (ZOAC) 2019",
+      "level": 13,
+      "tags": [
+        "다이나믹 프로그래밍",
+        "자릿수를 이용한 다이나믹 프로그래밍"
+      ]
+    },
+    {
+      "title": "🎵니가 싫어 싫어 너무 싫어 싫어 오지 마 내게 찝쩍대지마🎵 - 1",
+      "url": "https://www.acmicpc.net/problem/20440",
+      "contest": "ZeroOne Algorithm Contest (ZOAC) 2020",
+      "level": 13,
+      "tags": [
+        "정렬",
+        "누적 합",
+        "스위핑",
+        "값 / 좌표 압축"
+      ]
+    },
+    {
+      "title": "🎵니가 싫어 싫어 너무 싫어 싫어 오지 마 내게 찝쩍대지마🎵 - 2",
+      "url": "https://www.acmicpc.net/problem/20441",
+      "contest": "ZeroOne Algorithm Contest (ZOAC) 2020",
+      "level": 19,
+      "tags": [
+        "자료 구조",
+        "세그먼트 트리",
+        "스위핑",
+        "느리게 갱신되는 세그먼트 트리"
+      ]
+    }
+  ],
+  "minihome": "https://hammerturtle.xyz/"
+}
