@@ -108,7 +108,7 @@
 /* 8px 막대의 터치 영역을 위아래로 넓혀 24px 로 */
 .bar::before { content: ""; position: absolute; inset: -8px 0; }
 .bar:hover, .bar:focus-visible { transform: scaleY(1.7); z-index: 5; }
-.tip { font-size: 13.5px; line-height: 1.4; white-space: pre; transition: opacity 150ms ease-out, transform 150ms ease-out; }
+.tip { max-width: none; font-size: 13.5px; line-height: 1.4; white-space: pre; transition: opacity 150ms ease-out, transform 150ms ease-out; }
 
 /* filters */
 .tools { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 14px; }
