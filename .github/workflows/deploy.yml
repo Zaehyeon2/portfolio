@@ -23,9 +23,10 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm astro check
-      - uses: withastro/action@v5
+      - run: pnpm build
+      - uses: actions/upload-pages-artifact@v5
         with:
-          node-version: 24
+          path: dist
 
   deploy:
     needs: build
@@ -38,4 +39,4 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
