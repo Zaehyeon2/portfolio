@@ -223,7 +223,8 @@ html[data-intro] .tl .yl { animation: fade 0.5s ease-out backwards; }
    작은 글자 그림을 키우면 흐려지니 h1 쪽 그림을 보인다(목록으로 갈 땐 옛 그림, data-morph) */
 .dh h1, .row .nm .nmt { view-transition-class: proj; }
 .nm .nmt { display: inline-block; }
-::view-transition-old(*.proj), ::view-transition-new(*.proj) { animation: none; height: 100%; width: auto; }
+/* 그림은 폭에 맞춰 줄이고(한 줄끼리는 폭 비율 = 글자 크기 비율) 세로 가운데 */
+::view-transition-old(*.proj), ::view-transition-new(*.proj) { animation: none; top: 50%; translate: 0 -50%; }
 ::view-transition-old(*.proj) { opacity: 0; }
 html[data-morph="list"]::view-transition-old(*.proj) { opacity: 1; }
 html[data-morph="list"]::view-transition-new(*.proj) { opacity: 0; }

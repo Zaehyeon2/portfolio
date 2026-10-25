@@ -144,15 +144,44 @@ const built = ymd(new Date(), 'Asia/Seoul');
     </script>
     <script>
       // 목록↔상세 전환은 눌린 줄(돌아올 땐 그 상세의 줄) 이름 글자 하나만 상세 h1 과 이어 준다(꺾쇠는 빼고).
+      // 두 쪽 줄 수가 다르면(폰에서 긴 이름의 h1 이 여러 줄) 잇지 않는다: 그림 하나를 키우거나 줄이면 끝에서 글자 크기가 튄다.
       const name = (a: HTMLElement | null | undefined, slug?: string) => {
         if (a && slug) a.style.viewTransitionName = `p-${slug}`;
       };
+      const lines = (el: HTMLElement) => Math.round(el.getBoundingClientRect().height / parseFloat(getComputedStyle(el).lineHeight));
+      // 반대쪽 모양을 이 페이지 본문 폭에 숨겨 그려 줄 수를 잰다(높이 0 이라 화면은 그대로)
+      const probe = (html: string, sel: string) => {
+        const box = document.createElement('div');
+        box.style.cssText = 'height:0;overflow:hidden;visibility:hidden';
+        box.innerHTML = html;
+        document.querySelector('main')!.append(box);
+        const n = lines(box.querySelector<HTMLElement>(sel)!);
+        box.remove();
+        return n;
+      };
+      const asText = (t: string) => t.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]!);
+      const rowLines = (t: string) => probe(`<div class="row"><div class="nm"><a><span class="nmt">${asText(t)}</span></a></div><div class="pd"></div><div class="stk"></div><div class="ct"></div></div>`, '.nmt');
+      const h1Lines = (t: string) => probe(`<div class="dh"><h1>${asText(t)}</h1></div>`, 'h1');
+      let skip = false;
+      let skipIn = false;
+
       document.addEventListener('click', (e) => {
         if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
         const a = (e.target as Element).closest<HTMLElement>('.row .nm a');
-        name(a?.querySelector<HTMLElement>('.nmt'), a?.closest<HTMLElement>('.row')?.dataset.slug);
+        const nmt = a?.querySelector<HTMLElement>('.nmt');
+        skipIn = !!nmt && lines(nmt) !== h1Lines(nmt.textContent!);
+        if (nmt && !skipIn) name(nmt, a?.closest<HTMLElement>('.row')?.dataset.slug);
+      });
+      // 상세에서 나갈 때는 옛 화면을 찍기 전에 정한다
+      document.addEventListener('astro:before-preparation', () => {
+        const h1 = document.querySelector<HTMLElement>('.dh h1');
+        skip = !!h1 && lines(h1) !== rowLines(h1.textContent!);
+        if (skip) h1!.style.viewTransitionName = 'none';
       });
       document.addEventListener('astro:before-swap', (e) => {
+        if (skipIn) e.newDocument.querySelector<HTMLElement>('.dh h1')?.style.setProperty('view-transition-name', 'none');
+        skipIn = false;
+        if (skip) return;
         const slug = e.from.pathname.match(/\/([^/]+)\/$/)?.[1];
         const row = e.newDocument.querySelector<HTMLElement>(`.row[data-slug="${slug}"] .nmt`);
         name(row, slug);
