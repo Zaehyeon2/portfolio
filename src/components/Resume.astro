@@ -57,7 +57,7 @@ const algorithms = top ? [] : desc(profile.algorithms, (a) => yearOf(a.contest) 
             <li class="rrow">
               <span class="pd">{c.period}</span>
               <div>
-                <a class="team" href={`${BASE}?${new URLSearchParams({ team: c.team })}#projects`} data-astro-prefetch="false"><b>{c.name}</b></a>
+                <a class="team" href={`${BASE}?${new URLSearchParams({ team: c.team })}#projects`} data-astro-prefetch="false"><b>{c.name}</b><Chevron /></a>
                 <p>{c.desc}</p>
                 <ul class="cb">
                   {c.bullets.map(bullet).map(({ label, segs }) => (

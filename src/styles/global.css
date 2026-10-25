@@ -137,11 +137,11 @@
 .nm a:hover { color: var(--acc); }
 /* Learn more hover: 줄에 올리면 꺾쇠가 나타나고, 이름에 올리면 2px 밀리며 두 팔이 8도 벌어진다(경력 링크는 꺾쇠가 늘 보이고, 비워 두면 쉼표·괄호 앞이 휑해진다) */
 .lm { display: inline-block; width: 15px; height: 15px; margin-left: 4px; vertical-align: -2px; fill: none; stroke: var(--acc); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: 0; transform: translateX(-4px); transition: opacity 0.2s ease-out, transform 350ms var(--ease-out); }
-.row:hover .nm .lm, .nm a:focus-visible .lm, .cb .lm { opacity: 1; transform: none; }
-:is(.nm, .cb) a:hover .lm { transform: translateX(2px); }
+.row:hover .nm .lm, .rrow:hover .team .lm, :is(.nm a, .team):focus-visible .lm, .cb .lm { opacity: 1; transform: none; }
+:is(.nm a, .cb a, .team):hover .lm { transform: translateX(2px); }
 .arm { transform-box: view-box; transform-origin: 10px 8px; transition: transform 350ms var(--ease-out); }
-:is(.nm, .cb) a:hover .arm.up { transform: rotate(8deg); }
-:is(.nm, .cb) a:hover .arm.dn { transform: rotate(-8deg); }
+:is(.nm a, .cb a, .team):hover .arm.up { transform: rotate(8deg); }
+:is(.nm a, .cb a, .team):hover .arm.dn { transform: rotate(-8deg); }
 .nm p { color: var(--mut); margin-top: 2px; line-height: 1.55; }
 .pd { font-variant-numeric: tabular-nums; }
 .pd small { display: block; color: var(--mut); font-size: 14px; }
@@ -160,7 +160,7 @@ footer a:hover { text-decoration: underline; }
 /* resume */
 .resume { margin-top: 56px; padding-top: 10px; border-top: 1px solid var(--ink); }
 .resume.lead-resume { margin: 0 0 30px; padding-top: 0; border-top: 0; }
-.rrow a.team:hover b { color: var(--acc); text-decoration: underline; }
+.rrow a.team:hover, .rrow a.team:hover b { color: var(--acc); text-decoration: none; }
 .cb { margin-top: 6px; padding-left: 1.1em; list-style: disc; }
 .cb li { margin-top: 3px; }
 .cb li::marker { color: var(--acc); }
