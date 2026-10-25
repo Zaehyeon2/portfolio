@@ -7,7 +7,9 @@ type: "신규서비스"
 contribution: 0.6
 summary: "주기적으로 토큰 가격 데이터를 수집·정제하여 온체인 스마트 컨트랙트에 기록하는 독립형 오라클 시스템"
 stack: ["Solidity","Nest.js","TypeScript","ECS","CDKTF"]
-links: []
+links:
+  - label: "Price Oracle 컨트랙트"
+    url: "https://polygonscan.com/address/0x6c7c3549E8729CB4A91e6527650043DC324F14f9"
 ---
 ## 배경 및 목표
 
