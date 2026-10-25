@@ -156,6 +156,8 @@ export default function Explorer({ projects, teamOrder, intro, motto, info, phot
     if (q !== location.search) history.replaceState(history.state, '', (q || location.pathname) + location.hash);
     setNow(new Date());
     window.hdList = { path: location.pathname, search: location.search };
+    // 상세의 "프로젝트 목록" 링크가 이 기록으로 뒤로 갈지 정한다(Astro 이동마다 history.state.index 가 1씩 는다).
+    sessionStorage.setItem('listIndex', String(history.state?.index ?? ''));
     const onSwap = () => (window.hdList = undefined);
     document.addEventListener('astro:before-swap', onSwap);
     // Base.astro 의 인라인 popstate 가 목록 안 뒤로·앞으로(쿼리만 바뀜)를 Astro 보다 먼저 받아 넘겨 준다.

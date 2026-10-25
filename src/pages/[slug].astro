@@ -49,10 +49,19 @@ const { Content } = await render(entry);
 </Base>
 
 <script>
-  // 목록에서 고른 필터를 "프로젝트 목록" 링크에 되살린다.
+  // 목록에서 바로 들어왔으면 뒤로 가기로 돌아가 스크롤·필터를 그대로 되살린다.
+  // 아니면(주소로 바로 들어옴) 고른 필터를 붙여 목록의 프로젝트 칸으로 이동한다.
   document.addEventListener('astro:page-load', () => {
     const a = document.querySelector<HTMLAnchorElement>('[data-back]');
+    if (!a) return;
     const q = sessionStorage.getItem('listQuery');
-    if (a && q) a.search = q;
+    if (q) a.search = q;
+    a.hash = 'projects';
+    a.onclick = (e) => {
+      const i = sessionStorage.getItem('listIndex');
+      if (i === null || i === '' || history.state?.index !== Number(i) + 1) return;
+      e.preventDefault();
+      history.back();
+    };
   });
 </script>
