@@ -2,7 +2,7 @@
 name: "Call of Cthulhu Character Generator"
 team: "개인·기타"
 start: "2023.10"
-end: "2026.08"
+end: "2023.12"
 type: "신규서비스"
 contribution: 1
 summary: "Call of Cthulhu TRPG 게임의 캐릭터 생성을 도와주는 웹 도구"
