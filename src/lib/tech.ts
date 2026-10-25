@@ -1,9 +1,9 @@
 // 기술 태그 → 묶음(profile.json skills 와 같은 이름). 새 태그는 여기에 넣어야 빌드가 통과한다.
 const GROUPS = {
   Backend: ['TypeScript', 'Nest.js', 'Java', 'Spring Boot', 'AWS SQS', 'Kafka', 'Go', 'MSA', 'Library', 'CLI'],
-  Data: ['MySQL', 'DynamoDB', 'OpenSearch', 'Redis', 'Supabase'],
+  Data: ['MySQL', 'DynamoDB', 'OpenSearch', 'Redis', 'Supabase', 'Obsidian'],
   Infra: ['AWS Lambda', 'ECS', 'S3', 'AWS CDK', 'CDKTF', 'Pulumi', 'Kubernetes', 'Serverless', 'CloudFront', 'HMS', 'Keycloak'],
-  AI: ['Python', 'MCP', 'AI', 'n8n', 'Chatbot', 'Embedding', 'Automation'],
+  AI: ['Python', 'MCP', 'AI', 'Claude Code', 'n8n', 'Chatbot', 'Embedding', 'Automation'],
   Frontend: ['React', 'Next.js', 'Electron', 'Vite', 'Tailwind CSS', 'Zustand', 'Radix UI'],
   Blockchain: ['Solidity', 'ERC-1155', 'ERC-4337', 'IPFS'],
 };
