@@ -4,6 +4,7 @@ import { Checkbox } from '@base-ui/react/checkbox';
 import { Input } from '@/components/ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Chevron } from '@/components/Chevron';
 import { href, type Item, period, ym, ymd } from '@/lib/project';
 import { techStyle } from '@/lib/tech';
 import { useGlide } from '@/lib/use-glide';
@@ -430,10 +431,7 @@ export default function Explorer({ projects, teamOrder, intro, motto, info, phot
                   <div className="nm">
                     <a href={href(p.slug)}>
                       <span className="nmt">{p.name}</span>
-                      <svg className="lm" viewBox="0 0 16 16" aria-hidden="true">
-                        <path className="arm up" d="M6 4L10 8" />
-                        <path className="arm dn" d="M10 8L6 12" />
-                      </svg>
+                      <Chevron />
                     </a>
                     <p>{p.summary}</p>
                   </div>
