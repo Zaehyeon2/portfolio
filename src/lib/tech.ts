@@ -4,7 +4,7 @@ const GROUPS = {
   Data: ['MySQL', 'DynamoDB', 'OpenSearch', 'Redis', 'Supabase'],
   Infra: ['AWS Lambda', 'ECS', 'S3', 'AWS CDK', 'CDKTF', 'Pulumi', 'Kubernetes', 'Serverless', 'CloudFront', 'HMS', 'Keycloak'],
   AI: ['Python', 'MCP', 'AI', 'n8n', 'Chatbot', 'Embedding', 'Automation'],
-  Frontend: ['React', 'Next.js', 'Electron'],
+  Frontend: ['React', 'Next.js', 'Electron', 'Vite', 'Tailwind CSS', 'Zustand', 'Radix UI'],
   Blockchain: ['Solidity', 'ERC-1155', 'ERC-4337', 'IPFS'],
 };
 // 타임라인 팀 색(hue 195·150·35)과 겹치지 않는 hue. 글자 대비 5:1 이상.
