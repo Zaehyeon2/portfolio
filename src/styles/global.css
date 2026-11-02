@@ -39,6 +39,7 @@
   --t0: #0b6e8a;
   --t1: #4d8a6c;
   --t2: #b07a2a;
+  --t3: #6b7280;
   --background: var(--bg);
   --foreground: var(--ink);
   --card: #fff;
@@ -102,6 +103,7 @@
 .t0 { --c: var(--t0); --chip: hsl(193 60% 92%); --chip-ink: hsl(193 75% 22%); }
 .t1 { --c: var(--t1); --chip: hsl(150 35% 90%); --chip-ink: hsl(150 45% 22%); }
 .t2 { --c: var(--t2); --chip: hsl(36 65% 90%); --chip-ink: hsl(36 70% 24%); }
+.t3 { --c: var(--t3); --chip: hsl(220 15% 92%); --chip-ink: hsl(220 20% 28%); }
 .bar { position: absolute; height: 8px; border-radius: 4px; background: var(--c); transition: transform 0.2s ease-out, opacity 0.3s ease-out; }
 .bar.open { background: linear-gradient(90deg, var(--c) 70%, transparent); border-right: 2px dashed var(--c); border-radius: 4px 0 0 4px; }
 .bar.dim { opacity: 0.18; }
@@ -314,7 +316,7 @@ html[data-intro] .intro .text > :nth-child(4) { animation-delay: 120ms; }
 
 /* 사이트 밖으로 나가는 링크 표시 */
 .ext { display: inline-block; vertical-align: -1px; margin-left: 2px; flex: none; }
-/* 고른 팀 칩: 팀 색(.t0~2 의 --chip)으로 기술 칩과 같은 연한 바탕 + 진한 글자 */
+/* 고른 팀 칩: 팀 색(.t0~3 의 --chip)으로 기술 칩과 같은 연한 바탕 + 진한 글자 */
 .pk.team { background: var(--chip); color: var(--chip-ink); }
 .pk .ti { margin-right: 4px; color: inherit; }
 /* 처음 열 때 묶음이 보이면 줄이 올라온다(Base.astro 스크립트가 rv·seen·done 을 단다). 시차는 9줄째에서 멈춘다 */
